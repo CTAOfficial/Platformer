@@ -7,6 +7,7 @@
 
 
 class Player;
+class World;
 
 class Game : public Window {
 private:
@@ -24,6 +25,7 @@ public:
 	Vector2 screenCenter;
 
 	Player* player = nullptr;
+	World* world = nullptr;
 
 	void Run() override;
 	void Start() override;

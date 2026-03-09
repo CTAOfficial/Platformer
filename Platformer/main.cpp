@@ -44,7 +44,7 @@ int main() {
 		std::cout << array.GetValue(i) << "\n";
 	}*/
 
-	std::string name = "Steroids";
+	std::string name = "Platformer";
 	Game* game = new Game(name, Vector2{ 1080, 720 });
 
 	game->Run();

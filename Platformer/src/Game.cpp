@@ -7,9 +7,12 @@
 #include "imgui/backends/imgui_impl_sdl3.h"
 #include "imgui/backends/imgui_impl_sdlrenderer3.h"
 #include "Sprites/Sprite.h"
+#include "WidgetManager.h"
+#include "Utilities/Assets.h"
+#include "Scenes/SceneManagement.h"
+#include "Worlds/World.h"
 #include <SDL3_image/SDL_image.h>
-#include <WidgetManager.h>
-#include <Utilities/Assets.h>
+
 
 
 Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)size.Y)
@@ -18,6 +21,9 @@ Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)s
 	Bounds = size;
 
 	Sprite::MissingSprite = new Sprite{ renderer, "build/images/MissingSprite.png" };
+
+	world = new World{ "World" };
+	world->SetActive(true);
 
 	player = new Player(0, renderer, Vector2{ screenCenter.X * 0.5f, Bounds.Y * 0.5f });
 	player->SetBounds(Bounds);
@@ -95,10 +101,10 @@ void Game::Update() {
 
 	WidgetManager::PreUpdate();
 	EntityManager::PreUpdate();
-	EntityManager::Update(*this, dt);
+	SceneManagement::Update(*this, dt);
 	WidgetManager::Update();
 	//CollisionSystem::Update(EntityManager::GetEntities());
-	EntityManager::Draw(renderer);
+	SceneManagement::Draw(renderer);
 	
 }
 

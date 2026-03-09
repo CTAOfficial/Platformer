@@ -1,4 +1,5 @@
 #include "Input.h"
+#include "InputAction.h"
 #include <algorithm>
 #include <iostream>
 
@@ -6,6 +7,8 @@
 std::vector<SDL_Keycode> Input::downKeys;
 std::vector<SDL_Keycode> Input::upKeys;
 std::vector<SDL_Keycode> Input::pressedKeys;
+std::vector<InputAction> Input::actions;
+std::queue<InputAction> Input::invokationList;
 
 void Input::Process(SDL_Event& event)
 {
@@ -21,6 +24,29 @@ void Input::Process(SDL_Event& event)
 	}
 }
 
+void Input::Update()
+{
+	for (auto& action : actions) {
+		if (action.CheckConditions()) { invokationList.push(action); }
+	}
+
+	pressedKeys.clear();
+	upKeys.clear();
+
+	for (int i = 0; i < invokationList.size(); i++) {
+		auto& action = invokationList.front();
+		action.Invoke();
+		invokationList.pop();
+		i--;
+	}
+}
+
+#pragma region Actions
+void Input::AddAction(InputAction action) { actions.push_back(action); }
+#pragma endregion
+
+
+#pragma region Key Handling
 void Input::HandleKeyDown(SDL_Keycode key)
 {
 	auto iterator = std::find(downKeys.begin(), downKeys.end(), key);
@@ -35,19 +61,12 @@ void Input::HandleKeyDown(SDL_Keycode key)
 void Input::HandleKeyUp(SDL_Keycode key)
 {
 	upKeys.push_back(key);
-
-	auto iterator = std::find(downKeys.begin(), downKeys.end(), key);
-	if (iterator != downKeys.end()) {
-		downKeys.erase(iterator);
-	}
+	std::erase(downKeys, key);
 }
 
-void Input::Update()
-{
-	pressedKeys.clear();
-	upKeys.clear();
-}
+#pragma endregion
 
+#pragma region GetKeys
 bool Input::GetKey(SDL_Keycode key)
 {
 	for (int i = 0; i < pressedKeys.size(); i++) {
@@ -72,3 +91,6 @@ bool Input::GetKeyDown(SDL_Keycode key)
 
 	return false;
 }
+
+#pragma endregion
+

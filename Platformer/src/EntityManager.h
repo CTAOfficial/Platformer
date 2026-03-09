@@ -17,8 +17,6 @@ private:
 public:
 	static void Add(GameObject* entity);
 	static void AddToRemove(GameObject* entity);
-	static void Draw(SDL_Renderer* renderer);
-	static void Update(Game& game, float deltaTime);
 	static void PreUpdate();
 	static void Shutdown();
 

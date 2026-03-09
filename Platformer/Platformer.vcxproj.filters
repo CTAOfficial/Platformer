@@ -90,6 +90,21 @@
     <ClCompile Include="include\imgui\backends\imgui_impl_sdlrenderer3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Input\InputAction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputActions\MovementAction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scenes\SceneManagement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scenes\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Worlds\World.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Entities\Basic2D.h">
@@ -180,6 +195,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Input\Keybind.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InputActions\PlayerAction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InputActions\MovementAction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Worlds\World.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scenes\SceneManagement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

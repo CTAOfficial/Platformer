@@ -18,20 +18,6 @@ void EntityManager::Remove(GameObject* entity)
 	std::erase(Entities, entity);
 }
 
-void EntityManager::Draw(SDL_Renderer* renderer)
-{
-	for (auto& entity : Entities) {
-		entity->Draw(renderer);
-	}
-}
-
-void EntityManager::Update(Game& game, float deltaTime)
-{
-	for (auto& entity : Entities) {
-		entity->Update(game, deltaTime);
-	}
-}
-
 void EntityManager::PreUpdate()
 {
 	while (!DestroyQueue.empty()) {

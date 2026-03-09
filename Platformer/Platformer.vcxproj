@@ -149,7 +149,11 @@
     <ClCompile Include="src\Entities\VelocityObject.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\InputActions\MovementAction.cpp" />
     <ClCompile Include="src\Input\Input.cpp" />
+    <ClCompile Include="src\Input\InputAction.cpp" />
+    <ClCompile Include="src\Scenes\Scene.cpp" />
+    <ClCompile Include="src\Scenes\SceneManagement.cpp" />
     <ClCompile Include="src\Sprites\Sprite.cpp" />
     <ClCompile Include="src\UI\TextUI.cpp" />
     <ClCompile Include="src\Utilities\Assets.cpp" />
@@ -159,6 +163,7 @@
     <ClCompile Include="src\Widgets\PlayerWidget.cpp" />
     <ClCompile Include="src\Widgets\Widget.cpp" />
     <ClCompile Include="src\Windowing\Window.cpp" />
+    <ClCompile Include="src\Worlds\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CollisionSystem.h" />
@@ -171,11 +176,15 @@
     <ClInclude Include="src\EntityManager.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\IDrawable.h" />
+    <ClInclude Include="src\InputActions\MovementAction.h" />
+    <ClInclude Include="src\InputActions\PlayerAction.h" />
     <ClInclude Include="src\Input\InputAction.h" />
     <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Input\Keybind.h" />
     <ClInclude Include="src\IUpdateable.h" />
     <ClInclude Include="src\RGBA.h" />
+    <ClInclude Include="src\Scenes\Scene.h" />
+    <ClInclude Include="src\Scenes\SceneManagement.h" />
     <ClInclude Include="src\Size.h" />
     <ClInclude Include="src\Sprites\Sprite.h" />
     <ClInclude Include="src\Sprites\SpriteSheet.h" />
@@ -191,6 +200,7 @@
     <ClInclude Include="src\Widgets\PlayerWidget.h" />
     <ClInclude Include="src\Widgets\Widget.h" />
     <ClInclude Include="src\Windowing\Window.h" />
+    <ClInclude Include="src\Worlds\World.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL3.lib" />

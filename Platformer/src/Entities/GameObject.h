@@ -4,6 +4,7 @@
 #include "IUpdateable.h"
 #include <Vector2.h>
 #include <SDL3/SDL_render.h>
+#include "Scenes/Scene.h"
 
 class Game;
 class Sprite;
@@ -22,7 +23,10 @@ public:
 		this->sprite = sprite;
 	}
 
+	bool IsActive = true;
+	bool IsStatic = false;
 	bool DebugMode = false;
+	Scene* scene = nullptr;
 
 	Sprite* sprite = nullptr;
 	Vector2 position = Vector2::Zero;
