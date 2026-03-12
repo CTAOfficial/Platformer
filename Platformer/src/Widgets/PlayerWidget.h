@@ -10,6 +10,6 @@ protected:
 
 public:
 	PlayerWidget(Player* player) : Inspector(player) {
-		Title = std::format("Player '{}' Inspector", player->playerIndex);
+		Title = std::format("Player '{}' Inspector", player->name);
 	}
 };

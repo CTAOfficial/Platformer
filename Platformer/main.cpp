@@ -1,36 +1,14 @@
 #include <iostream>
-#include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
-#include <SDL3_mixer/SDL_mixer.h>
-#include <SDL3_image/SDL_image.h>
 #include "src/Windowing/Window.h"
 #include "src/Game.h"
 #include "DynamicArray.h"
 #include <string>
+#include <Utilities/Engine.h>
 
-static bool Initialize() {
-
-	if (!SDL_Init(SDL_INIT_VIDEO)) {
-		std::cout << "SDL Failed to initialize. " << SDL_GetError() << "\n";;
-		return false;
-	}
-
-	if (!TTF_Init()) {
-		std::cout << "SDL_TTF Failed to initialize. " << SDL_GetError() << "\n";;
-		return false;
-	}
-
-	if (!MIX_Init()) {
-		std::cerr << "SDL_Mixer Failed to Initialize. " << SDL_GetError() << "\n";
-		return false;
-	}
-
-	return true;
-}
 
 int main() {
 
-	if (!Initialize()) {
+	if (Engine::Start()) {
 		return -1;
 	}
 

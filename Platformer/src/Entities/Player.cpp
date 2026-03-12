@@ -2,17 +2,20 @@
 #include "../Game.h"
 #include "../Input/Input.h"
 #include "Sprites/Sprite.h"
+#include "Renderers/SpriteRenderer.h"
 #include "Widgets/PlayerWidget.h"
 #include <numbers>
 #include <iostream>
 
 
-Player::Player(int index, SDL_Renderer* renderer, Vector2 pos) : GameObject(pos)
+Player::Player(SDL_Renderer* renderer, Vector2 pos) : GameObject(pos)
 {
-	sprite = new Sprite{ renderer, "build/images/player.png" };
+	Sprite* sprite = new Sprite{ renderer, "build/images/player.png" };
 	sprite->scale = { 0.15f, 0.15f };
 
-	playerIndex = index;
+	this->renderer = new SpriteRenderer(*this, sprite);
+
+	name = "big cheese";
 	tag = "Player";
 
 	widget = new PlayerWidget{ this };
@@ -70,3 +73,81 @@ void Player::SetLeftKey(SDL_Keycode key)
 	LeftKey = key;
 }
 #pragma endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//uranus

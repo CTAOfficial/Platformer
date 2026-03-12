@@ -7,6 +7,7 @@
 #include "Scenes/Scene.h"
 
 class Game;
+class Renderer;
 class Sprite;
 
 class GameObject : public Object, public IDrawable, public IUpdateable {
@@ -19,16 +20,13 @@ public:
 	GameObject(Vector2 pos) : GameObject()  {
 		position = pos;
 	}
-	GameObject(Sprite* sprite, Vector2 pos) : GameObject(pos) {
-		this->sprite = sprite;
-	}
 
 	bool IsActive = true;
 	bool IsStatic = false;
 	bool DebugMode = false;
 	Scene* scene = nullptr;
 
-	Sprite* sprite = nullptr;
+	Renderer* renderer = nullptr;
 	Vector2 position = Vector2::Zero;
 	std::string tag;
 	Vector2 Bounds;

@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "Sprites/Sprite.h"
 #include "EntityManager.h"
+#include "Renderers/Renderer.h"
 #include "Scenes/Scene.h"
 #include "Scenes/SceneManagement.h"
 
@@ -13,9 +14,8 @@ GameObject::GameObject() : Object()
 
 void GameObject::Draw(SDL_Renderer* renderer)
 {
-	if (sprite != nullptr) {
-		sprite->position = position;
-		sprite->Draw(renderer);
+	if (this->renderer) {
+		this->renderer->Render(renderer);
 	}
 }
 

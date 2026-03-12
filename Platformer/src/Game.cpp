@@ -25,7 +25,7 @@ Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)s
 	world = new World{ "World" };
 	world->SetActive(true);
 
-	player = new Player(0, renderer, Vector2{ screenCenter.X * 0.5f, Bounds.Y * 0.5f });
+	player = new Player(renderer, Vector2{ screenCenter.X * 0.5f, Bounds.Y * 0.5f });
 	player->SetBounds(Bounds);
 
 	player->SetUpKey(SDLK_W);

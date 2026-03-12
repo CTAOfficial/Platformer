@@ -4,81 +4,58 @@
 
 Sprite* Sprite::MissingSprite;
 
-Sprite::Sprite()
-{
 
+Sprite::Sprite() {
+    if (texture) {
+        center = { rect.w * 0.5f, rect.h * 0.5f };
+        rect = SDL_FRect{ position.X, position.Y, (float)texture->width * scale.X, (float)texture->height * scale.Y };
+    }
+    else {
+        rect = SDL_FRect{ position.X, position.Y, 0, 0 };
+    }
 }
 
-Sprite::Sprite(SDL_Texture* texture) : Sprite()
+Sprite::Sprite(Texture* texture) : Sprite()
 {
-    this->texture = texture;
+    SetTexture(texture);
+}
+
+Sprite::Sprite(SDL_Texture* sdl_texture) : Sprite()
+{
+    if (sdl_texture) {
+        SetTexture(new Texture{ sdl_texture });
+    }
 }
 
 Sprite::Sprite(SDL_Renderer* renderer, std::string path) : Sprite()
 {
-    texture = LoadTexture(renderer, path);
-    center = { rect.w * 0.5f, rect.h * 0.5f };
-    rect = SDL_FRect{ position.X, position.Y, (float)texture->w * scale.X, (float)texture->h * scale.Y };
+    texture = Texture::LoadTexture(renderer, path);
 }
 
 Sprite::~Sprite()
 {
-    if (texture){ SDL_DestroyTexture(texture); }
+    delete texture;
 }
 
 void Sprite::Draw(SDL_Renderer* renderer)
 {
     centerPos = position + center;
 
-    if (texture != nullptr) {
-        rect = SDL_FRect { centerPos.X, centerPos.Y, (float)texture->w * scale.X, (float)texture->h * scale.Y };
-        SDL_RenderTextureRotated(renderer, texture, NULL, const_cast<SDL_FRect*>(&rect), rotation, NULL, SDL_FLIP_NONE);
+    if (texture) {
+        rect = SDL_FRect { centerPos.X, centerPos.Y, (float)texture->width * scale.X, (float)texture->height * scale.Y };
+        SDL_RenderTextureRotated(renderer, texture->SDLTexture(), NULL, const_cast<SDL_FRect*>(&rect), rotation, NULL, flipMode);
     }
     else {
-        rect = SDL_FRect { centerPos.X, centerPos.Y, scale.X, scale.Y };
+        rect = SDL_FRect { centerPos.X, centerPos.Y, 0, 0 };
     }
 }
 
-SDL_Texture* Sprite::LoadTexture(SDL_Renderer* renderer, std::string path)
+bool Sprite::SetTexture(Texture* texture)
 {
-    SDL_Surface* surface = IMG_Load(path.c_str());
-    if (surface == nullptr)
-    {
-        std::cout << "Unable to load image '" << path << "'! SDL_image Error: " << SDL_GetError() << "\n";
-        return nullptr;
-    }
+    if (!texture) { return false; }
 
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-    SDL_DestroySurface(surface);
-    if (texture == nullptr)
-    {
-        std::cout << "Unable to load texture from surface." << SDL_GetError() << "\n";
-        return nullptr;
-    }
+    this->texture = texture;
 
-    // Texture Scaling (Jagged Edges etc)
-    SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST);
 
-    return texture;
-}
-
-bool Sprite::LoadTexture(SDL_Renderer* renderer, std::string path, SDL_Texture& outTexture)
-{
-    SDL_Surface* surface = IMG_Load(path.c_str());
-    if (surface == nullptr) 
-    { 
-        std::cout << "Unable to load image '" << path << "'! SDL_image Error: " << SDL_GetError() << "\n";
-        return false; 
-    }
-
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-    SDL_DestroySurface(surface);
-    if (texture == nullptr)
-    {
-        std::cout << "Unable to load texture from surface." << SDL_GetError() << "\n";
-        return false;
-    }
-    
-    outTexture = *texture;
     return true;
 }

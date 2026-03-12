@@ -142,6 +142,8 @@
     <ClCompile Include="include\imgui\imgui_tables.cpp" />
     <ClCompile Include="include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\Animations\AnimatedSprite.cpp" />
+    <ClCompile Include="src\Animations\Animation.cpp" />
     <ClCompile Include="src\CollisionSystem.cpp" />
     <ClCompile Include="src\Entities\Basic2D.cpp" />
     <ClCompile Include="src\Entities\GameObject.cpp" />
@@ -152,11 +154,16 @@
     <ClCompile Include="src\InputActions\MovementAction.cpp" />
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\Input\InputAction.cpp" />
+    <ClCompile Include="src\Renderers\SpriteRenderer.cpp" />
     <ClCompile Include="src\Scenes\Scene.cpp" />
     <ClCompile Include="src\Scenes\SceneManagement.cpp" />
     <ClCompile Include="src\Sprites\Sprite.cpp" />
+    <ClCompile Include="src\Sprites\SpriteSheet.cpp" />
+    <ClCompile Include="src\Sprites\Texture.cpp" />
+    <ClCompile Include="src\Sprites\TextureAtlas.cpp" />
     <ClCompile Include="src\UI\TextUI.cpp" />
     <ClCompile Include="src\Utilities\Assets.cpp" />
+    <ClCompile Include="src\Utilities\Engine.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
     <ClCompile Include="src\WidgetManager.cpp" />
     <ClCompile Include="src\Widgets\EntityManagementObserver.cpp" />
@@ -166,6 +173,8 @@
     <ClCompile Include="src\Worlds\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Animations\AnimatedSprite.h" />
+    <ClInclude Include="src\Animations\Animation.h" />
     <ClInclude Include="src\CollisionSystem.h" />
     <ClInclude Include="src\DynamicArray.h" />
     <ClInclude Include="src\Entities\Basic2D.h" />
@@ -182,15 +191,20 @@
     <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Input\Keybind.h" />
     <ClInclude Include="src\IUpdateable.h" />
+    <ClInclude Include="src\Renderers\Renderer.h" />
+    <ClInclude Include="src\Renderers\SpriteRenderer.h" />
     <ClInclude Include="src\RGBA.h" />
     <ClInclude Include="src\Scenes\Scene.h" />
     <ClInclude Include="src\Scenes\SceneManagement.h" />
     <ClInclude Include="src\Size.h" />
     <ClInclude Include="src\Sprites\Sprite.h" />
     <ClInclude Include="src\Sprites\SpriteSheet.h" />
+    <ClInclude Include="src\Sprites\Texture.h" />
+    <ClInclude Include="src\Sprites\TextureAtlas.h" />
     <ClInclude Include="src\UI\TextUI.h" />
     <ClInclude Include="src\util.h" />
     <ClInclude Include="src\Utilities\Assets.h" />
+    <ClInclude Include="src\Utilities\Engine.h" />
     <ClInclude Include="src\Vector2.h" />
     <ClInclude Include="src\WidgetManager.h" />
     <ClInclude Include="src\Widgets\AssetWidget.h" />

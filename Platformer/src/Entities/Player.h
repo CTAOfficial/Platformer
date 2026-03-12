@@ -27,10 +27,9 @@ private:
 
 
 public:
-	Player(int index, SDL_Renderer* renderer, Vector2 pos);
+	Player(SDL_Renderer* renderer, Vector2 pos);
 	~Player();
 
-	int playerIndex = 0;
 	float speed = 10;
 
 	void Update(Game& game, float deltaTime) override;
