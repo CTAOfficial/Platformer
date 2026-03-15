@@ -2,7 +2,7 @@
 #include <map>
 #include <string>
 #include "../Entities/Object.h"
-
+// https://brightspace.uos.ac.uk/d2l/le/lessons/84561/topics/1405619 - 38:33
 class Assets {
 private:
 	static std::map<std::string, Object*> assets;

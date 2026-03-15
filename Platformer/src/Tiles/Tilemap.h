@@ -4,24 +4,29 @@
 #include <vector>
 
 class Tilemap {
-  public:
-    std::vector<Tile> Tiles;
-    
+public:
+    std::vector<Tile*> Tiles;
+
     int Size() const {
-      return Tiles.size();
+        return Tiles.size();
     }
-    Vector2 Dims() const{
-      return Vector2::Zero;
+    Vector2 Dims() const {
+        return Vector2::Zero;
     }
-    
-    Tile& Add(Tile* tile) const {
-      // ..TODO: check if contains
-      Tiles.push_back(tile);
-      return *tile;
-      }
-    
-    bool Remove(Tile* tile){
-      //..TODO: Remove tile
-      return true;
+
+    bool TryAdd(Tile* tile) {
+        Add(tile);
+        return true;
     }
-}
+
+    Tile& Add(Tile* tile) {
+        // ..TODO: check if contains
+        Tiles.push_back(tile);
+        return const_cast<Tile&>(*tile); ;
+    }
+
+    bool Remove(Tile* tile) {
+        //..TODO: Remove tile
+        return true;
+    }
+};

@@ -22,7 +22,11 @@ Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)s
 
 	Sprite::MissingSprite = new Sprite{ renderer, "build/images/MissingSprite.png" };
 
-	world = new World{ "World" };
+	WorldDictionary<std::string>* dictionary = new WorldDictionary<std::string>();
+	dictionary->Define("block", Texture::LoadTexture(renderer, "build/textures/block.png"));
+
+	world = World::FromFile<std::string>("build/worlds/test", *dictionary);
+	//world = new World{ "World" };
 	world->SetActive(true);
 
 	player = new Player(renderer, Vector2{ screenCenter.X * 0.5f, Bounds.Y * 0.5f });
@@ -32,7 +36,6 @@ Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)s
 	player->SetDownKey(SDLK_S);
 	player->SetLeftKey(SDLK_A);
 	player->SetRightKey(SDLK_D);
-
 }
 
 Game::~Game()

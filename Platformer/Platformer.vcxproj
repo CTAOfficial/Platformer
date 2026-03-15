@@ -171,6 +171,7 @@
     <ClCompile Include="src\Widgets\Widget.cpp" />
     <ClCompile Include="src\Windowing\Window.cpp" />
     <ClCompile Include="src\Worlds\World.cpp" />
+    <ClCompile Include="src\Worlds\WorldDictionary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Animations\AnimatedSprite.h" />
@@ -201,6 +202,9 @@
     <ClInclude Include="src\Sprites\SpriteSheet.h" />
     <ClInclude Include="src\Sprites\Texture.h" />
     <ClInclude Include="src\Sprites\TextureAtlas.h" />
+    <ClInclude Include="src\TextAsset.h" />
+    <ClInclude Include="src\Tiles\Tile.h" />
+    <ClInclude Include="src\Tiles\Tilemap.h" />
     <ClInclude Include="src\UI\TextUI.h" />
     <ClInclude Include="src\util.h" />
     <ClInclude Include="src\Utilities\Assets.h" />
@@ -215,6 +219,7 @@
     <ClInclude Include="src\Widgets\Widget.h" />
     <ClInclude Include="src\Windowing\Window.h" />
     <ClInclude Include="src\Worlds\World.h" />
+    <ClInclude Include="src\Worlds\WorldDictionary.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL3.lib" />

@@ -126,6 +126,9 @@
     <ClCompile Include="src\Renderers\SpriteRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Worlds\WorldDictionary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Entities\Basic2D.h">
@@ -252,6 +255,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderers\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Worlds\WorldDictionary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tiles\Tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tiles\Tilemap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TextAsset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
