@@ -13,4 +13,15 @@ class Tilemap {
     Vector2 Dims() const{
       return Vector2::Zero;
     }
+    
+    Tile& Add(Tile* tile) const {
+      // ..TODO: check if contains
+      Tiles.push_back(tile);
+      return *tile;
+      }
+    
+    bool Remove(Tile* tile){
+      //..TODO: Remove tile
+      return true;
+    }
 }
