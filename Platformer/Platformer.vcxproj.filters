@@ -102,9 +102,6 @@
     <ClCompile Include="src\Scenes\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Worlds\World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Sprites\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -126,10 +123,10 @@
     <ClCompile Include="src\Renderers\SpriteRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Worlds\WorldDictionary.cpp">
+    <ClCompile Include="src\Tiles\Tile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tiles\Tile.cpp">
+    <ClCompile Include="src\Worlds\World.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

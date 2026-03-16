@@ -1,5 +1,5 @@
 #pragma once
-#include "../Entities/Object.h"
+#include "Entities/Object.h"
 #include <SDL3/SDL_render.h>
 #include <string>
 

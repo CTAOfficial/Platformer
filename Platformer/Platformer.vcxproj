@@ -172,7 +172,6 @@
     <ClCompile Include="src\Widgets\Widget.cpp" />
     <ClCompile Include="src\Windowing\Window.cpp" />
     <ClCompile Include="src\Worlds\World.cpp" />
-    <ClCompile Include="src\Worlds\WorldDictionary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Animations\AnimatedSprite.h" />

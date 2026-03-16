@@ -8,9 +8,11 @@
 #include "imgui/backends/imgui_impl_sdlrenderer3.h"
 #include "Sprites/Sprite.h"
 #include "WidgetManager.h"
+#include "Sprites/Texture.h"
 #include "Utilities/Assets.h"
 #include "Scenes/SceneManagement.h"
 #include "Worlds/World.h"
+#include "Worlds/WorldDictionary.h"
 #include <SDL3_image/SDL_image.h>
 
 
@@ -23,10 +25,9 @@ Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)s
 	Sprite::MissingSprite = new Sprite{ renderer, "build/images/MissingSprite.png" };
 
 	WorldDictionary<std::string>* dictionary = new WorldDictionary<std::string>();
-	dictionary->Define("block", Texture::LoadTexture(renderer, "build/textures/block.png"));
+	dictionary->Define("0", Texture::LoadTexture(renderer, "build/textures/block.png"));
 
 	world = World::FromFile<std::string>("build/worlds/test", *dictionary);
-	//world = new World{ "World" };
 	world->SetActive(true);
 
 	player = new Player(renderer, Vector2{ screenCenter.X * 0.5f, Bounds.Y * 0.5f });

@@ -8,3 +8,8 @@ Tile::Tile(Texture* texture)
 	sprite = new Sprite{ texture };
 	renderer = new SpriteRenderer{ *this, sprite };
 }
+
+Tile::Tile(Texture* texture, Vector2 pos) : Tile(texture)
+{
+	position = pos;
+}

@@ -2,6 +2,7 @@
 #include "Sprites/Texture.h"
 #include <map>
 
+
 template <typename T>
 struct WorldDictionary {
 private:
@@ -10,8 +11,23 @@ private:
 public:
 	WorldDictionary(){}
 
-	bool Define(T definition, Texture* texture);
-	bool Undefine(T definition);
+	bool Define(T definition, Texture* texture) {
+		if (Definitions.contains(definition)) {
+			return false;
+		}
+		std::pair<T, Texture*> pair = std::pair<T, Texture*>{ definition, texture };
+		Definitions.insert(pair);
+		return true;
+	}
+	bool Undefine(T definition) {
+		if (!Definitions.contains(definition)) { return false; }
 
-	Texture* Fetch(T definition);
+		Definitions[definition] = nullptr;
+		return true;
+	}
+
+	Texture* Fetch(T definition) {
+		if (!Definitions.contains(definition)) { return nullptr; }
+		return Definitions[definition];
+	}
 };
