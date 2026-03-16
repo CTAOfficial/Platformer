@@ -1,13 +1,12 @@
 #pragma once
-#include "../Entities/Object.h"
+#include "Entities/Object.h"
+#include "TextAsset.h"
 #include <iostream>
 #include <filesystem>
 #include <map>
 #include <string>
 #include <SDL3/SDL_render.h>
 #include <type_traits>
-
-namespace fs = std::filesystem;
 
 // https://brightspace.uos.ac.uk/d2l/le/lessons/84561/topics/1405619 - 38:33
 //..TODO: Delete assets on shutdown (after entities destroyed)
@@ -18,6 +17,8 @@ private:
 	static bool AddAsset(Object* asset, std::string path);
 	static void CheckDirectory(std::string path, bool recursive = false);
 	static Object* ConvertToAsset(std::filesystem::path filePath, SDL_Renderer* renderer = Renderer);
+	static TextAsset* CheckTextAsset(std::filesystem::path& file);
+	static bool ValidateFile(std::filesystem::path& file);
 
 public:
 	static std::string AssetPath;
@@ -25,7 +26,7 @@ public:
 	static float DefaultFontSize;
 
 	static void Load(std::string path, bool recursive = false);
-	static void Load(fs::directory_entry, bool recursive = false);
+	static void Load(std::filesystem::directory_entry, bool recursive = false);
 	static void LoadAll(std::string path = AssetPath);
 
 	template <typename T>

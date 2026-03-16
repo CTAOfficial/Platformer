@@ -1,4 +1,6 @@
 #include "World.h"
+#include <iostream>
+#include <fstream>
 
 World::World(std::string name, Tilemap* tilemap) : World(name)
 {

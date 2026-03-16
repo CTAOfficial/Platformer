@@ -161,6 +161,7 @@
     <ClCompile Include="src\Sprites\SpriteSheet.cpp" />
     <ClCompile Include="src\Sprites\Texture.cpp" />
     <ClCompile Include="src\Sprites\TextureAtlas.cpp" />
+    <ClCompile Include="src\TextAsset.cpp" />
     <ClCompile Include="src\Tiles\Tile.cpp" />
     <ClCompile Include="src\UI\Font.cpp" />
     <ClCompile Include="src\UI\TextUI.cpp" />

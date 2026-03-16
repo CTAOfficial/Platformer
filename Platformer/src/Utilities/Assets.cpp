@@ -1,6 +1,8 @@
 #include "Assets.h"
 #include "Sprites/Texture.h"
+#include "TextAsset.h"
 #include "UI/Font.h"
+#include <algorithm>
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
@@ -22,33 +24,60 @@ void Assets::CheckDirectory(std::string path, bool recursive)
 {
     if (!Renderer) { return; }
 
-    // Iterate through files (non-recursive)
-    //std::cout << "\nFiles in folder:\n";
-    for (const auto& entry : fs::directory_iterator(path)) {
+    for (const auto& entry : std::filesystem::directory_iterator(path)) {
         Load(entry, true);
-    }
-
-    
+    }    
 }
 
 Object* Assets::ConvertToAsset(std::filesystem::path filePath, SDL_Renderer* renderer)
 {
     if (!Renderer) { return nullptr; }
-    std::string file = filePath.filename().string();
+    std::filesystem::path  file = filePath.filename();
     std::string path = filePath.string();
 
-    //SDL_Surface* surface = nullptr;
-    if (SDL_Surface* surface = IMG_Load(path.c_str())) {
+    if (!ValidateFile(file)) {
+        return nullptr; 
+    }
+
+    if (TextAsset* asset = CheckTextAsset(filePath)) {
+        return asset;
+    }
+    else if (SDL_Surface* surface = IMG_Load(path.c_str())) {
         Texture* texture = Texture::FromSurface(renderer, surface);
         return texture;
     }
     else if (TTF_Font* ttf_font = TTF_OpenFont(path.c_str(), DefaultFontSize)) {
         Font* font = new Font{ ttf_font };
+        font->name = file.filename().string();
         return font;
     }
 
     std::cerr << "Cannot Convert path to Asset: " << path << "\n";
     return nullptr;
+}
+
+TextAsset* Assets::CheckTextAsset(std::filesystem::path& file)
+{
+    std::string extension = file.extension().string();
+
+    if (extension == ".txt" ||
+        extension == ".xml") {
+        return new TextAsset{ file };
+    }
+
+    return nullptr;
+}
+
+bool Assets::ValidateFile(std::filesystem::path& file)
+{
+    std::string extension = file.extension().string();
+
+    if (extension == ".lnk" ||
+        extension == ".url") {
+        return false; 
+    }
+
+    return true;
 }
 
 void Assets::LoadAll(std::string path)
@@ -59,58 +88,59 @@ void Assets::LoadAll(std::string path)
 
 void Assets::Load(std::string path, bool recursive)
 {
-    /*if (recursive) {
-        for (const auto& entry : fs::directory_iterator(path)) {
-            Load(entry, recursive);
-        }
-    }
-    else {
-        Load(fs::directory_entry(path));
-    }*/
-
-
     try {
-        if (!fs::exists(path)) {
+        if (!std::filesystem::exists(path)) {
             std::cerr << "Error: Path does not exist.\n";
             return;
         }
-        if (!fs::is_directory(path)) {
+        if (!std::filesystem::is_directory(path)) {
             std::cerr << "Error: Path is not a directory.\n";
             return;
         }
 
         CheckDirectory(path);
-
     }
-    catch (const fs::filesystem_error& e) {
+    catch (const std::filesystem::filesystem_error& e) {
+        //..TODO: Log
         std::cerr << "Filesystem error: " << e.what() << '\n';
         return;
     }
     catch (const std::exception& e) {
+        //..TODO: Log
         std::cerr << "Error: " << e.what() << '\n';
         return;
     }
 }
 
-void Assets::Load(fs::directory_entry entry, bool recursive)
+void Assets::Load(std::filesystem::directory_entry entry, bool recursive)
 {
     if (!Renderer) { return; }
 
-    fs::path path = entry.path();
-    if (fs::is_regular_file(entry.status())) {
-        std::cout << "File: " << path.filename().string() << '\n';
+    std::filesystem::path path = entry.path();
+    if (std::filesystem::is_regular_file(entry.status())) {
+        std::cout << "\nFile: " << path.filename().string() << '\n';
 
         if (Object* object = ConvertToAsset(path)) {
             std::string string = path.string();
+
             if (path.string().starts_with(AssetPath)) {
-                //string = entry.;
+                size_t pos = path.string().find(AssetPath);
+
+                if (pos != std::string::npos) {
+                    string.erase(pos, AssetPath.length());
+                }
             }
 
+
+            std::replace(string.begin(), string.end(), '\\', '/');
+            std::cout << "\t" << string;
             AddAsset(object, string);
         }
     }
-    else if (fs::is_directory(entry.status()) && recursive) {
-        std::cout << "Directory: " << entry.path().filename().string() << '\n';
+    else if (std::filesystem::is_directory(entry.status()) && recursive) {
+        std::cout << "\n========================================================\n";
+        std::cout << "\n\tDirectory: " << entry.path().string() << "\n";
+        std::cout << "\n========================================================\n";
         Load(path.string());
     }
 
