@@ -162,6 +162,7 @@
     <ClCompile Include="src\Sprites\Texture.cpp" />
     <ClCompile Include="src\Sprites\TextureAtlas.cpp" />
     <ClCompile Include="src\Tiles\Tile.cpp" />
+    <ClCompile Include="src\UI\Font.cpp" />
     <ClCompile Include="src\UI\TextUI.cpp" />
     <ClCompile Include="src\Utilities\Assets.cpp" />
     <ClCompile Include="src\Utilities\Engine.cpp" />
@@ -185,6 +186,8 @@
     <ClInclude Include="src\Entities\VelocityObject.h" />
     <ClInclude Include="src\EntityManager.h" />
     <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\Grids\Grid.h" />
+    <ClInclude Include="src\Grids\ObjectGrid.h" />
     <ClInclude Include="src\IDrawable.h" />
     <ClInclude Include="src\InputActions\MovementAction.h" />
     <ClInclude Include="src\InputActions\PlayerAction.h" />
@@ -205,6 +208,7 @@
     <ClInclude Include="src\TextAsset.h" />
     <ClInclude Include="src\Tiles\Tile.h" />
     <ClInclude Include="src\Tiles\Tilemap.h" />
+    <ClInclude Include="src\UI\Font.h" />
     <ClInclude Include="src\UI\TextUI.h" />
     <ClInclude Include="src\util.h" />
     <ClInclude Include="src\Utilities\Assets.h" />

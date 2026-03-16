@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Entities/Basic2D.h"
+#include "Font.h"
 #include <SDL3_ttf/SDL_ttf.h>
 #include <string>
 #include <SDL3/SDL_surface.h>
@@ -10,6 +11,8 @@
 
 class TextUI : public Basic2D {
 protected:
+	SDL_Surface* surface = nullptr;
+
 	~TextUI();
 
 public:
@@ -17,13 +20,13 @@ public:
 
 	SDL_Texture* texture = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	TTF_Font* font = nullptr;
+
 	SDL_Color color = { 255, 255, 255, SDL_ALPHA_OPAQUE };
-	SDL_Surface* surface = nullptr;
+	Font* font = nullptr;
 	std::string text;
 
 
 	void Draw(SDL_Renderer* renderer) override;
 	void SetText(std::string text);
-	void SetSize(int size);
+	void SetSize(float size);
 };

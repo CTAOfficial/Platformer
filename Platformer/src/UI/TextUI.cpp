@@ -10,7 +10,7 @@ TextUI::TextUI(std::string fontPath, SDL_Renderer* renderer, Vector2 pos, RGBA r
 	this->renderer = renderer;
 	color = { rgba.R, rgba.G, rgba.B, rgba.A };
 
-	font = TTF_OpenFont(fontPath.c_str(), 12);
+	font = new Font{ TTF_OpenFont(fontPath.c_str(), 12) };
 	if (!font) {
 		std::cout << "Failed to retrive font '" + fontPath + "'\n";
 		std::cout << SDL_GetError() << "\n";
@@ -25,7 +25,7 @@ TextUI::TextUI(std::string fontPath, SDL_Renderer* renderer, Vector2 pos, RGBA r
 TextUI::~TextUI() 
 {
 	SDL_DestroyTexture(texture);
-	TTF_CloseFont(font);
+	font = nullptr;
 }
 
 void TextUI::Draw(SDL_Renderer* renderer) {
@@ -38,7 +38,7 @@ void TextUI::Draw(SDL_Renderer* renderer) {
 
 void TextUI::SetText(std::string input)
 {
-	surface = TTF_RenderText_Blended(font, input.c_str(), 0, color);
+	surface = TTF_RenderText_Blended(font->SDLFont(), input.c_str(), 0, font->color);
 	if (surface) {
 		texture = SDL_CreateTextureFromSurface(renderer, surface);
 		SDL_DestroySurface(surface);
@@ -46,6 +46,6 @@ void TextUI::SetText(std::string input)
 	}
 }
 
-void TextUI::SetSize(int size) {
-	TTF_SetFontSize(font, size);
+void TextUI::SetSize(float size) {
+	font->SetSize(size);
 }

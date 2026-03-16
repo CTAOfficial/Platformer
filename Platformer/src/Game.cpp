@@ -22,12 +22,21 @@ Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)s
 	screenCenter = Vector2{ size.X * 0.5f, size.Y * 0.5f };
 	Bounds = size;
 
-	Sprite::MissingSprite = new Sprite{ renderer, "build/images/MissingSprite.png" };
 
-	WorldDictionary<std::string>* dictionary = new WorldDictionary<std::string>();
-	dictionary->Define("0", Texture::LoadTexture(renderer, "build/textures/block.png"));
+	Assets::AssetPath = "build\\assets\\";
+	Assets::Renderer = renderer;
+	Assets::DefaultFontSize = 24;
+	Assets::LoadAll();
+	//Sprite::MissingSprite = new Sprite{ renderer, "images/MissingSprite.png" };
+	Sprite::MissingSprite = new Sprite{ Assets::Get<Texture*>("build\\assets\\images\\MissingSprite.png") };
 
-	world = World::FromFile<std::string>("build/worlds/test", *dictionary);
+	WorldDictionary* dictionary = new WorldDictionary();
+	dictionary->Define("0", Assets::Get<Texture*>("build\\assets\\kenny pack\\Sprites\\Tiles\\Default\\water.png"));
+	dictionary->Define("1", Assets::Get<Texture*>("build\\assets\\kenny pack\\Sprites\\Tiles\\Default\\terrain_grass_block_top.png"));
+	dictionary->Define("2", Assets::Get<Texture*>("build\\assets\\kenny pack\\Sprites\\Tiles\\Default\\terrain_grass_block_top_left.png"));
+	dictionary->Define("3", Assets::Get<Texture*>("build\\assets\\kenny pack\\Sprites\\Tiles\\Default\\terrain_grass_block_top_right.png"));
+
+	world = World::FromFile("build/worlds/test", *dictionary);
 	world->SetActive(true);
 
 	player = new Player(renderer, Vector2{ screenCenter.X * 0.5f, Bounds.Y * 0.5f });

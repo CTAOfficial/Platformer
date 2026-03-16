@@ -26,6 +26,7 @@ public:
 	}
 	void SetScaleMode(SDL_ScaleMode mode);
 
+	static Texture* FromSurface(SDL_Renderer* renderer, SDL_Surface* surface);
 	static Texture* LoadTexture(SDL_Renderer* renderer, std::string path);
 	static bool LoadTexture(SDL_Renderer* renderer, std::string path, Texture& outTexture);
 };

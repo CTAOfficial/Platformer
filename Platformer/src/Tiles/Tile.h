@@ -9,10 +9,12 @@ protected:
     using GameObject::GameObject;
 
 public:
+    Tile(Sprite* sprite);
+    Tile(Sprite* sprite, Vector2 pos);
     Tile(Texture* texture);
     Tile(Texture* texture, Vector2 pos);
 
-    Sprite* sprite;
+    Sprite* sprite = nullptr;
 
 
 };

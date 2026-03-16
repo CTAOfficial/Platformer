@@ -3,6 +3,16 @@
 #include "Sprites/Texture.h"
 #include "Renderers/SpriteRenderer.h"
 
+Tile::Tile(Sprite* sprite)
+{
+	this->sprite = sprite;
+}
+
+Tile::Tile(Sprite* sprite, Vector2 pos)
+{
+	position = pos;
+}
+
 Tile::Tile(Texture* texture)
 {
 	sprite = new Sprite{ texture };

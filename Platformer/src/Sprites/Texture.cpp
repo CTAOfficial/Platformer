@@ -34,12 +34,14 @@ void Texture::SetScaleMode(SDL_ScaleMode mode)
     SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST);
 }
 
-Texture* Texture::LoadTexture(SDL_Renderer* renderer, std::string path)
+Texture* Texture::FromSurface(SDL_Renderer* renderer, SDL_Surface* surface)
 {
-    SDL_Surface* surface = IMG_Load(path.c_str());
-    if (surface == nullptr)
-    {
-        std::cout << "Unable to load image '" << path << "'! SDL_image Error: " << SDL_GetError() << "\n";
+    if (!renderer) {
+        std::cout << "Provided renderer is nullptr.";
+        return nullptr;
+    }
+    if (!surface) {
+        std::cout << "Provided surface is nullptr.";
         return nullptr;
     }
 
@@ -51,5 +53,17 @@ Texture* Texture::LoadTexture(SDL_Renderer* renderer, std::string path)
         return nullptr;
     }
 
-    return new Texture{ sdl_texture };;
+    return new Texture{ sdl_texture };
+}
+
+Texture* Texture::LoadTexture(SDL_Renderer* renderer, std::string path)
+{
+    SDL_Surface* surface = IMG_Load(path.c_str());
+    if (surface == nullptr)
+    {
+        std::cout << "Unable to load image '" << path << "'! SDL_image Error: " << SDL_GetError() << "\n";
+        return nullptr;
+    }
+
+    return FromSurface(renderer, surface);;
 }
