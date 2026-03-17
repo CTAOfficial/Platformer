@@ -6,4 +6,5 @@ private:
 
 public:
 	static bool Start();
+	static void Shutdown();
 };

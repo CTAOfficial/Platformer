@@ -30,8 +30,7 @@ int main() {
 	delete game;
 	game = nullptr;
 
-	TTF_Quit();
-	SDL_Quit();
+	Engine::Shutdown();
 	return 0;
 }
 

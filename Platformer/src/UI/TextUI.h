@@ -24,6 +24,7 @@ public:
 	SDL_Color color = { 255, 255, 255, SDL_ALPHA_OPAQUE };
 	Font* font = nullptr;
 	std::string text;
+	Vector2 offset;
 
 
 	void Draw(SDL_Renderer* renderer) override;

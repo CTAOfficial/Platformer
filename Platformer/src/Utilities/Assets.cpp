@@ -28,6 +28,37 @@ void Assets::CheckDirectory(std::string path, bool recursive)
         Load(entry, true);
     }    
 }
+bool Assets::ValidateFile(std::filesystem::path& file)
+{
+    std::string extension = file.extension().string();
+
+    if (extension == ".lnk" ||
+        extension == ".url") {
+        return false; 
+    }
+
+    return true;
+}
+
+void Assets::ProcessFile(std::filesystem::path file)
+{
+    if (Object* object = ConvertToAsset(file)) {
+        std::string string = file.string();
+
+        if (file.string().starts_with(AssetPath)) {
+            size_t pos = file.string().find(AssetPath);
+
+            if (pos != std::string::npos) {
+                string.erase(pos, AssetPath.length());
+            }
+        }
+
+
+        std::replace(string.begin(), string.end(), '\\', '/');
+        std::cout << "\t" << string << "\n";
+        AddAsset(object, string);
+    }
+}
 
 Object* Assets::ConvertToAsset(std::filesystem::path filePath, SDL_Renderer* renderer)
 {
@@ -68,17 +99,6 @@ TextAsset* Assets::CheckTextAsset(std::filesystem::path& file)
     return nullptr;
 }
 
-bool Assets::ValidateFile(std::filesystem::path& file)
-{
-    std::string extension = file.extension().string();
-
-    if (extension == ".lnk" ||
-        extension == ".url") {
-        return false; 
-    }
-
-    return true;
-}
 
 void Assets::LoadAll(std::string path)
 {
@@ -116,30 +136,17 @@ void Assets::Load(std::filesystem::directory_entry entry, bool recursive)
 {
     if (!Renderer) { return; }
 
+    
+
     std::filesystem::path path = entry.path();
     if (std::filesystem::is_regular_file(entry.status())) {
         std::cout << "\nFile: " << path.filename().string() << '\n';
 
-        if (Object* object = ConvertToAsset(path)) {
-            std::string string = path.string();
-
-            if (path.string().starts_with(AssetPath)) {
-                size_t pos = path.string().find(AssetPath);
-
-                if (pos != std::string::npos) {
-                    string.erase(pos, AssetPath.length());
-                }
-            }
-
-
-            std::replace(string.begin(), string.end(), '\\', '/');
-            std::cout << "\t" << string;
-            AddAsset(object, string);
-        }
+        ProcessFile(path);
     }
     else if (std::filesystem::is_directory(entry.status()) && recursive) {
         std::cout << "\n========================================================\n";
-        std::cout << "\n\tDirectory: " << entry.path().string() << "\n";
+        std::cout << "\tDirectory: " << entry.path().string();
         std::cout << "\n========================================================\n";
         Load(path.string());
     }

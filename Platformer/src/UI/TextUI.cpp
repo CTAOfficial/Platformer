@@ -17,10 +17,6 @@ TextUI::TextUI(std::string fontPath, SDL_Renderer* renderer, Vector2 pos, RGBA r
 	}
 
 	SetText("Sample Text");
-
-	SDL_GetTextureSize(texture, &rect.w, &rect.h);
-	rect.x = pos.X;
-	rect.y = pos.Y;
 }
 TextUI::~TextUI() 
 {
@@ -30,8 +26,8 @@ TextUI::~TextUI()
 
 void TextUI::Draw(SDL_Renderer* renderer) {
 
-	rect.x = position.X;
-	rect.y = position.Y;
+	rect.x = position.X + offset.X;
+	rect.y = position.Y + offset.Y;
 	SDL_SetRenderDrawColor(renderer, colour.R, colour.G, colour.B, colour.A);
 	SDL_RenderTexture(renderer, texture, NULL, &rect);
 }
@@ -39,11 +35,16 @@ void TextUI::Draw(SDL_Renderer* renderer) {
 void TextUI::SetText(std::string input)
 {
 	surface = TTF_RenderText_Blended(font->SDLFont(), input.c_str(), 0, font->color);
-	if (surface) {
-		texture = SDL_CreateTextureFromSurface(renderer, surface);
-		SDL_DestroySurface(surface);
-		text = input;
+	if (!surface) {
+		std::cout << "Could not create surface.";
+		return;
 	}
+
+	texture = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_DestroySurface(surface);
+	text = input;
+
+	SDL_GetTextureSize(texture, &rect.w, &rect.h);
 }
 
 void TextUI::SetSize(float size) {

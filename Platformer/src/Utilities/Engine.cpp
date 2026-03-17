@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "Assets.h"
 #include <iostream>
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
@@ -30,4 +31,13 @@ bool Engine::Start()
 	if (!InitializeLibraries()) {
 		return false;
 	}
+}
+
+void Engine::Shutdown()
+{
+	Assets::Shutdown();
+
+	TTF_Quit();
+	MIX_Quit();
+	SDL_Quit();
 }
