@@ -2,8 +2,3 @@
 
 Vector2 Vector2::Zero = Vector2{ 0, 0 };
 Vector2 Vector2::One = Vector2{ 1, 1 };
-
-// never gonna give you up
-// never gonna let you down
-// never gonna run around
-// and desert you

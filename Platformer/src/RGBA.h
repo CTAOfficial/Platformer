@@ -3,6 +3,8 @@
 
 struct RGBA {
 public:
+	static RGBA White;
+
 	RGBA(Uint8 r) {
 		R = r;
 	}

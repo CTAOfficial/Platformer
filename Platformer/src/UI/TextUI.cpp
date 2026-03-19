@@ -1,4 +1,5 @@
 #include "TextUI.h"
+#include "Font.h"
 #include <string>
 #include <iostream>
 #include <SDL3_ttf/SDL_ttf.h>
@@ -17,6 +18,10 @@ TextUI::TextUI(std::string fontPath, SDL_Renderer* renderer, Vector2 pos, RGBA r
 	}
 
 	SetText("Sample Text");
+}
+TextUI::TextUI(Font* font, Vector2 pos, RGBA rgba) : Basic2D(pos, rgba)
+{
+	this->font = font;
 }
 TextUI::~TextUI() 
 {

@@ -1,13 +1,12 @@
 #pragma once
 
 #include "../Entities/Basic2D.h"
-#include "Font.h"
-#include <SDL3_ttf/SDL_ttf.h>
 #include <string>
 #include <SDL3/SDL_surface.h>
 #include <SDL3/SDL_pixels.h>
 #include <SDL3/SDL_render.h>
 
+class Font;
 
 class TextUI : public Basic2D {
 protected:
@@ -17,6 +16,7 @@ protected:
 
 public:
 	TextUI(std::string fontPath, SDL_Renderer* renderer, Vector2 pos, RGBA rgba);
+	TextUI(Font* font, Vector2 pos, RGBA rgba = RGBA::White);
 
 	SDL_Texture* texture = nullptr;
 	SDL_Renderer* renderer = nullptr;
