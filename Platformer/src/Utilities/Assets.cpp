@@ -34,6 +34,8 @@ bool Assets::ValidateFile(std::filesystem::path& file)
 
     if (extension == ".lnk" ||
         extension == ".url") {
+
+        std::cerr << "\t- Cannot validate file of type '" + extension + "'.\n";
         return false; 
     }
 
@@ -43,6 +45,8 @@ bool Assets::ValidateFile(std::filesystem::path& file)
 void Assets::ProcessFile(std::filesystem::path file)
 {
     if (Object* object = ConvertToAsset(file)) {
+        object->name = file.filename().string();
+
         std::string string = file.string();
 
         if (file.string().starts_with(AssetPath)) {
@@ -79,7 +83,6 @@ Object* Assets::ConvertToAsset(std::filesystem::path filePath, SDL_Renderer* ren
     }
     else if (TTF_Font* ttf_font = TTF_OpenFont(path.c_str(), DefaultFontSize)) {
         Font* font = new Font{ ttf_font };
-        font->name = file.filename().string();
         return font;
     }
 

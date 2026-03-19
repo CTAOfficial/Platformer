@@ -8,6 +8,7 @@ class Player;
 class World : public Scene {
 private:
 	Tilemap* tilemap = nullptr;
+	std::vector<Tile*> colliders;
 	
 public:
 	//const std::string FileExtension = ".world";
@@ -16,8 +17,9 @@ public:
 	World(std::string name) : Scene(name){}
     World(std::string name, Tilemap* tilemap);
 
-	//`void Draw(SDL_Renderer* renderer) override;
 	void Update(Game& game, float deltaTime) override;
+	void SetCollider(std::string texture);
+	void UnsetCollider(std::string texture);
 
 	static World* FromFile(std::string path, WorldDictionary& dictionary);
 };

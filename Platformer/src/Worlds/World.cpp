@@ -13,30 +13,42 @@ World::World(std::string name, Tilemap* tilemap) : World(name)
 	}
 }
 
-// hate this. Use as Band-aid if draw order become an issue and until draw orders are created
-/*void World::Draw(SDL_Renderer* renderer)
-{
-    for (auto& tile : tilemap->Tiles()) {
-        tile->Draw(renderer);
-    }
-
-    player->Draw(renderer);
-}*/
-
 void World::Update(Game& game, float deltaTime)
 {
+    Scene::Update(game, deltaTime);
+
     // Collision
-    if (player && tilemap) {
-        for (auto& tile : tilemap->Tiles()) {
-            if (SDL_HasRectIntersectionFloat(const_cast<SDL_FRect*>(tile->Rect()), const_cast<SDL_FRect*>(player->sprite->rect))) {
+    if (player && !colliders.empty()) {
+        for (auto& tile : colliders) {
 
-                // Check if player is above rect
-
+            SDL_FRect* tRect = tile->Rect();
+            SDL_FRect* pRect = player->sprite->rect;
+            if (SDL_HasRectIntersectionFloat(const_cast<SDL_FRect*>(tRect), const_cast<SDL_FRect*>(pRect))) {
+                player->OnCollision(*tRect);
+                break; // we don't care about other tile collision
             }
         }
     }
+}
 
-    Scene::Update(game, deltaTime);
+void World::SetCollider(std::string texture)
+{
+    for (auto& tile : tilemap->Tiles()) {
+
+        if (tile->sprite->GetTexure().name == texture) {
+            colliders.push_back(tile);
+        }
+    }
+}
+
+void World::UnsetCollider(std::string texture)
+{
+    for (auto& tile : colliders) {
+
+        if (tile->sprite->GetTexure().name == texture) {
+            std::erase(colliders, tile);
+        }
+    }
 }
 
 World* World::FromFile(std::string path, WorldDictionary& dictionary)

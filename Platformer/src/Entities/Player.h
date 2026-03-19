@@ -12,11 +12,14 @@ enum Direction {
 };
 
 class Game;
-class PlayerWidget;
+//class PlayerWidget;
 
 class Player : public GameObject {
 
 private:
+	friend class PlayerWidget;
+
+
 	PlayerWidget* widget;
 
 
@@ -25,17 +28,22 @@ private:
 	SDL_Keycode LeftKey = NULL;
 	SDL_Keycode RightKey = NULL;
 
+	SDL_FRect collision;
+
+	float speed = 100;
+	float gravity = 100;
+
 
 public:
 	Player(SDL_Renderer* renderer, Vector2 pos);
 	~Player();
 
 	Sprite* sprite;
-	float speed = 10;
+	
 
 	void Update(Game& game, float deltaTime) override;
 	void Draw(SDL_Renderer* renderer) override;
-
+	void OnCollision(SDL_FRect rect);
 
 	void SetLeftKey(SDL_Keycode key);
 	void SetRightKey(SDL_Keycode key);

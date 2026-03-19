@@ -15,7 +15,13 @@
 #include "Worlds/WorldDictionary.h"
 #include <SDL3_image/SDL_image.h>
 
-
+//Pong - https://github.com/CTAOfficial/ponk
+//
+//Brick Breaker - https://github.com/CTAOfficial/bricked
+//
+//Asteroids - https://github.com/CTAOfficial/steroids
+//
+//Platformer - https://github.com/CTAOfficial/platformer
 
 Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)size.Y)
 {
@@ -35,14 +41,15 @@ Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)s
 	dictionary->Define("3", Assets::Get<Texture*>("kenny pack/Sprites/Tiles/Default/terrain_grass_block_top_right.png"));
 
 	world = World::FromFile("build/worlds/test", *dictionary);
+	world->SetCollider("terrain_grass_block_top.png");
+	world->SetCollider("terrain_grass_block_top_left.png");
+	world->SetCollider("terrain_grass_block_top_right.png");
 	world->SetActive(true);
 
 	player = new Player(renderer, Vector2{ screenCenter.X * 0.5f, Bounds.Y * 0.5f });
 	player->SetBounds(Bounds);
 	world->player = player;
 
-	player->SetUpKey(SDLK_W);
-	player->SetDownKey(SDLK_S);
 	player->SetLeftKey(SDLK_A);
 	player->SetRightKey(SDLK_D);
 }
