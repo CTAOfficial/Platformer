@@ -47,7 +47,7 @@ void Player::Update(Game& game, float deltaTime)
 
 	if (Input::GetKey(SDLK_SPACE)) {
 		// Jump
-		position -= 1 * grav;
+		position.Y -= 5;
 	}
 
 	position.Y += grav;
