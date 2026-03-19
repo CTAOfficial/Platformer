@@ -17,8 +17,8 @@ public:
 
 	std::string name;
 
-	void Update(Game& game, float deltaTime);
-	void Draw(SDL_Renderer* renderer);
+	virtual void Update(Game& game, float deltaTime);
+	virtual void Draw(SDL_Renderer* renderer);
 	void SetActive(bool state);
 	bool AddObject(GameObject* gameObject);
 	bool RemoveFromScene(GameObject* gameObject);

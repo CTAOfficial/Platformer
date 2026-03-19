@@ -5,6 +5,7 @@
 #include <SDL3/SDL_render.h>
 
 class Game;
+class Object;
 class GameObject;
 
 class EntityManager {
@@ -14,7 +15,11 @@ private:
 	static std::stack<GameObject*> DestroyQueue;
 	static void Remove(GameObject* entity);
 
+	static int CurrentID;
+
 public:
+	// TODO: Separate object and gameobject handling
+	static void InitializeObject(Object* object);
 	static void Add(GameObject* entity);
 	static void AddToRemove(GameObject* entity);
 	static void PreUpdate();

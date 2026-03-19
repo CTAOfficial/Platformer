@@ -40,6 +40,7 @@ bool Scene::AddObject(GameObject* gameObject)
 		if (found == gameObject) { return false; }
 	}
 
+	gameObject->scene = this;
 	GameObjects.push_back(gameObject);
 	return true;
 }
@@ -47,5 +48,6 @@ bool Scene::AddObject(GameObject* gameObject)
 bool Scene::RemoveFromScene(GameObject* gameObject) {
 	if (!gameObject) { return false; }
 	
+	gameObject->scene = nullptr;
 	return std::erase(GameObjects, gameObject);
 }

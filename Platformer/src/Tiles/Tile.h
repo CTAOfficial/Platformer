@@ -16,5 +16,5 @@ public:
 
     Sprite* sprite = nullptr;
 
-
+    SDL_FRect* Rect();
 };

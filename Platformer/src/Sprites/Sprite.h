@@ -27,7 +27,7 @@ public:
 	SDL_FlipMode flipMode = SDL_FLIP_NONE;
 
 	Vector2 center;
-	SDL_FRect rect;
+	SDL_FRect* rect;
 
 	void Draw(SDL_Renderer* renderer);
 

@@ -39,6 +39,7 @@ Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)s
 
 	player = new Player(renderer, Vector2{ screenCenter.X * 0.5f, Bounds.Y * 0.5f });
 	player->SetBounds(Bounds);
+	world->player = player;
 
 	player->SetUpKey(SDLK_W);
 	player->SetDownKey(SDLK_S);

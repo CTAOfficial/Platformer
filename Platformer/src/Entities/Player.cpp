@@ -1,8 +1,9 @@
 #include "Player.h"
 #include "../Game.h"
 #include "../Input/Input.h"
-#include "Sprites/Sprite.h"
 #include "Renderers/SpriteRenderer.h"
+#include "Sprites/Sprite.h"
+#include "Utilities/Assets.h"
 #include "Widgets/PlayerWidget.h"
 #include <numbers>
 #include <iostream>
@@ -10,7 +11,7 @@
 
 Player::Player(SDL_Renderer* renderer, Vector2 pos) : GameObject(pos)
 {
-	Sprite* sprite = new Sprite{ renderer, "build/images/player.png" };
+	sprite = new Sprite{ Assets::Get<Texture*>("images/player.png")};
 	sprite->scale = { 0.15f, 0.15f };
 
 	this->renderer = new SpriteRenderer(*this, sprite);
@@ -56,14 +57,6 @@ void Player::Draw(SDL_Renderer* renderer)
 
 
 #pragma region Key Setting
-void Player::SetUpKey(SDL_Keycode key)
-{
-	UpKey = key;
-}
-void Player::SetDownKey(SDL_Keycode key)
-{
-	DownKey = key;
-}
 void Player::SetRightKey(SDL_Keycode key)
 {
 	RightKey = key;

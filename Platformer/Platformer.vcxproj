@@ -147,6 +147,7 @@
     <ClCompile Include="src\CollisionSystem.cpp" />
     <ClCompile Include="src\Entities\Basic2D.cpp" />
     <ClCompile Include="src\Entities\GameObject.cpp" />
+    <ClCompile Include="src\Entities\Object.cpp" />
     <ClCompile Include="src\Entities\Player.cpp" />
     <ClCompile Include="src\Entities\VelocityObject.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\Input\InputAction.cpp" />
     <ClCompile Include="src\Renderers\SpriteRenderer.cpp" />
+    <ClCompile Include="src\RGBA.cpp" />
     <ClCompile Include="src\Scenes\Scene.cpp" />
     <ClCompile Include="src\Scenes\SceneManagement.cpp" />
     <ClCompile Include="src\Sprites\Sprite.cpp" />

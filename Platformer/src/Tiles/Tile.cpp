@@ -23,3 +23,8 @@ Tile::Tile(Texture* texture, Vector2 pos) : Tile(texture)
 {
 	position = pos;
 }
+
+SDL_FRect* Tile::Rect()
+{
+	return sprite->rect;
+}

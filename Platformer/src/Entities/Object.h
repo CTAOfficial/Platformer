@@ -7,9 +7,10 @@ private:
 	int ID = 0;
 
 protected:
-	Object(){}
+	Object();
 
 public:
+	friend class EntityManager;
 	std::string name = "New Object";
 
 	virtual ~Object() {
@@ -19,4 +20,5 @@ public:
 	int GetID() const {
 		return ID;
 	}
+
 };

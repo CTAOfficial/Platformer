@@ -4,6 +4,14 @@
 std::vector<GameObject*> EntityManager::Entities;
 std::queue<GameObject*> EntityManager::ConstructionQueue;
 std::stack<GameObject*> EntityManager::DestroyQueue;
+int EntityManager::CurrentID = 0;
+
+void EntityManager::InitializeObject(Object* object)
+{
+	object->ID = ++CurrentID;
+
+	// TODO: Store unused/freed ID's and free ID's on Object destruction, then Fetch an ID based on what's available
+}
 
 void EntityManager::Add(GameObject* entity)
 {

@@ -1,6 +1,8 @@
 #include "World.h"
+#include "Entities/Player.h"
 #include <iostream>
 #include <fstream>
+#include <SDL3/SDL_rect.h>
 
 World::World(std::string name, Tilemap* tilemap) : World(name)
 {
@@ -9,6 +11,32 @@ World::World(std::string name, Tilemap* tilemap) : World(name)
 	for (auto& tile : tilemap->Tiles()) {
 		AddObject(tile);
 	}
+}
+
+// hate this. Use as Band-aid if draw order become an issue and until draw orders are created
+/*void World::Draw(SDL_Renderer* renderer)
+{
+    for (auto& tile : tilemap->Tiles()) {
+        tile->Draw(renderer);
+    }
+
+    player->Draw(renderer);
+}*/
+
+void World::Update(Game& game, float deltaTime)
+{
+    // Collision
+    if (player && tilemap) {
+        for (auto& tile : tilemap->Tiles()) {
+            if (SDL_HasRectIntersectionFloat(const_cast<SDL_FRect*>(tile->Rect()), const_cast<SDL_FRect*>(player->sprite->rect))) {
+
+                // Check if player is above rect
+
+            }
+        }
+    }
+
+    Scene::Update(game, deltaTime);
 }
 
 World* World::FromFile(std::string path, WorldDictionary& dictionary)
