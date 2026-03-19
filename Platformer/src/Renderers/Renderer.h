@@ -4,10 +4,10 @@
 
 class Renderer {
 protected:
-	GameObject& gameObject;
+	GameObject* gameObject;
 
 public:
-	Renderer(GameObject& gameObject) : gameObject{ gameObject }{}
+	Renderer(GameObject& gameObject) : gameObject{ &gameObject }{}
 
 	virtual void Render(SDL_Renderer* renderer){}
 };

@@ -6,9 +6,10 @@
 Tile::Tile(Sprite* sprite)
 {
 	this->sprite = sprite;
+	name = sprite->GetTexure().name;
 }
 
-Tile::Tile(Sprite* sprite, Vector2 pos)
+Tile::Tile(Sprite* sprite, Vector2 pos) : Tile(sprite)
 {
 	position = pos;
 }

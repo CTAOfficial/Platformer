@@ -15,20 +15,22 @@ World::World(std::string name, Tilemap* tilemap) : World(name)
 
 void World::Update(Game& game, float deltaTime)
 {
-    Scene::Update(game, deltaTime);
-
     // Collision
     if (player && !colliders.empty()) {
         for (auto& tile : colliders) {
 
             SDL_FRect* tRect = tile->Rect();
-            SDL_FRect* pRect = player->sprite->rect;
+            SDL_FRect* pRect = player->GetSprite()->rect;
             if (SDL_HasRectIntersectionFloat(const_cast<SDL_FRect*>(tRect), const_cast<SDL_FRect*>(pRect))) {
-                player->OnCollision(*tRect);
+                player->OnCollision(*tile, *tRect);
                 break; // we don't care about other tile collision
             }
         }
     }
+
+    Scene::Update(game, deltaTime);
+
+    
 }
 
 void World::SetCollider(std::string texture)

@@ -9,7 +9,7 @@ SpriteRenderer::SpriteRenderer(GameObject& gameObject, Sprite* sprite) : Rendere
 void SpriteRenderer::Render(SDL_Renderer* renderer)
 {
 	if (sprite != nullptr) {
-		sprite->position = gameObject.position;
+		sprite->position = gameObject->position;
 		sprite->Draw(renderer);
 	}
 }

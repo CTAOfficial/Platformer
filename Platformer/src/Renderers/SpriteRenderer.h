@@ -4,11 +4,10 @@
 class Sprite;
 
 class SpriteRenderer : public Renderer {
-private:
-	Sprite* sprite;
 
 public:
 	SpriteRenderer(GameObject& gameObject, Sprite* sprite = nullptr);
+	Sprite* sprite;
 
 	void Render(SDL_Renderer* renderer) override;
 };

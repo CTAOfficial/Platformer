@@ -12,7 +12,6 @@ private:
 	bool isPlaying = false;
 	int last = 0; // the last frame;
 
-	Sprite* frame = nullptr;
 	std::map<int, Sprite*> frames;
 
 public:
@@ -22,6 +21,7 @@ public:
 
 	int index = 0;
 	int skip = 1;
+	Sprite* frame = nullptr;
 
 	void Start();
 	void Stop();

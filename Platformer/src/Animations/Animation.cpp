@@ -28,6 +28,8 @@ Animation::Animation(Sprite* frames[], int size)
 		auto pair = std::pair<int, Sprite*>{current++, sprite};
 		this->frames.emplace(pair);
 	}
+
+	last = size - 1;
 }
 
 Animation::Animation(const std::vector<Sprite*>& frames)
@@ -37,6 +39,8 @@ Animation::Animation(const std::vector<Sprite*>& frames)
 		auto pair = std::pair<int, Sprite*>{ current++, sprite };
 		this->frames.emplace(pair);
 	}
+
+	last = current - 1;
 }
 
 void Animation::Start()

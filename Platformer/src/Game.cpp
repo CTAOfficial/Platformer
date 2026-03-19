@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Animations/Animation.h"
 #include "Input/Input.h"
 #include "Entities/Player.h"
 #include "EntityManager.h"
@@ -46,7 +47,25 @@ Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)s
 	world->SetCollider("terrain_grass_block_top_right.png");
 	world->SetActive(true);
 
+	
+
 	player = new Player(renderer, Vector2{ screenCenter.X * 0.5f, Bounds.Y * 0.5f });
+	Sprite* idle = new Sprite{ Assets::Get<Texture*>("kenny pack/Sprites/Characters/Default/character_beige_idle.png") };
+	idle->scale *= 0.5f;
+	Sprite* jump = new Sprite{ Assets::Get<Texture*>("kenny pack/Sprites/Characters/Default/character_beige_jump.png") };
+	jump->scale *= 0.5f;
+	player->idleSprite = idle;
+	player->jumpSprite = jump;
+	player->SetSprite(player->idleSprite);
+	
+	Sprite* sprite1 = new Sprite{ Assets::Get<Texture*>("kenny pack/Sprites/Characters/Default/character_beige_walk_a.png") };
+	sprite1->scale *= 0.5f;
+	Sprite* sprite2 = new Sprite{ Assets::Get<Texture*>("kenny pack/Sprites/Characters/Default/character_beige_walk_b.png") };
+	sprite2->scale *= 0.5f;
+	Sprite* sprites[2] = { sprite1, sprite2 };
+	Animation* animation = new Animation{ sprites, 2 };
+	player->moveAnimation = animation;
+	
 	player->SetBounds(Bounds);
 	world->player = player;
 

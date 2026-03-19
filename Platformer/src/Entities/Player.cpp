@@ -5,16 +5,14 @@
 #include "Sprites/Sprite.h"
 #include "Utilities/Assets.h"
 #include "Widgets/PlayerWidget.h"
+#include "Animations/Animation.h"
 #include <numbers>
 #include <iostream>
 
 
 Player::Player(SDL_Renderer* renderer, Vector2 pos) : GameObject(pos)
 {
-	sprite = new Sprite{ Assets::Get<Texture*>("images/player.png")};
-	sprite->scale = { 0.15f, 0.15f };
-
-	this->renderer = new SpriteRenderer(*this, sprite);
+	this->renderer = new SpriteRenderer(*this);
 
 	name = "big cheese";
 	tag = "Player";
@@ -26,28 +24,60 @@ Player::Player(SDL_Renderer* renderer, Vector2 pos) : GameObject(pos)
 Player::~Player()
 {
 	delete widget;
+	delete renderer;
 }
 
 void Player::Update(Game& game, float deltaTime)
 {
-	float grav = gravity * deltaTime;
-	float finalSpeed = speed * deltaTime;
-
 	if (Input::GetKey(SDLK_TAB)) {
 		widget->Toggle();
 	}
 
+	bool isMoving = false;
+	float finalSpeed = speed * deltaTime;
 
 	if (Input::GetKeyDown(LeftKey)) {
 		position.X -= finalSpeed;
+		isMoving = true;
+		direction = Direction::Left;
 	}
 	if (Input::GetKeyDown(RightKey)) {
 		position.X += finalSpeed;
+		isMoving = true;
+		direction = Direction::Right;
 	}
 
-	if (Input::GetKey(SDLK_SPACE)) {
-		// Jump
-		position.Y -= 5;
+	if (isMoving) {
+		switch (direction) {
+		case Direction::Left:
+			GetSprite()->flipMode = SDL_FlipMode::SDL_FLIP_HORIZONTAL;
+			break;
+		case Direction::Right:
+			GetSprite()->flipMode = SDL_FlipMode::SDL_FLIP_NONE;
+			break;
+		}
+
+		if (moveAnimation) {
+			animationTimer -= (1 * deltaTime);
+
+			if (animationTimer <= 0) {
+				animationTimer = animationReset;
+				moveAnimation->Animate();
+				SetSprite(moveAnimation->frame);
+			}
+		}
+	}	
+	else {
+		SetSprite(idleSprite);
+		animationTimer = animationReset;
+	}
+
+	// Ground Check, Jumping & Gravity
+	float grav = gravity * deltaTime;
+	if (Input::GetKey(SDLK_SPACE) && grounded) {
+		position.Y -= jumpForce;
+		grounded = false;
+		SetSprite(jumpSprite);
 	}
 
 	position.Y += grav;
@@ -59,10 +89,12 @@ void Player::Draw(SDL_Renderer* renderer)
 	GameObject::Draw(renderer);
 
 	if (!DebugMode) { return; }
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	SDL_RenderRect(renderer, GetSprite()->rect);
 
 	if (collision.w > 0 && collision.h > 0) {
-		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-		SDL_RenderFillRect(renderer, &collision);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+		SDL_RenderRect(renderer, &collision);
 
 		// I suspect my Sprite is very far from my player position, TODO: Fix later
 		//SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
@@ -70,15 +102,21 @@ void Player::Draw(SDL_Renderer* renderer)
 	}
 }
 
-void Player::OnCollision(SDL_FRect rect)
+void Player::OnCollision(GameObject& gameObject, SDL_FRect rect)
 {
 	collision = rect;
+	grounded = true;
 
 	// Check if player is above rect
 	float pos = rect.h - rect.y;
 	if (position.Y > pos) {
 		position.Y = -pos;
 	}
+}
+
+void Player::SetSprite(Sprite* sprite)
+{
+	GetRenderer<SpriteRenderer*>()->sprite = sprite;
 }
 
 

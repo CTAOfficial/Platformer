@@ -20,6 +20,9 @@ public:
 	Sprite(SDL_Renderer* renderer, std::string path);
 	~Sprite();
 
+	// Draw From Top Left
+	//bool DrawFromTL = false;
+
 	Vector2 position;
 	Vector2 centerPos;
 	Vector2 scale = Vector2::One;
